@@ -1,5 +1,6 @@
 package game2048;
 
+import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.Observable;
 
@@ -109,17 +110,63 @@ public class Model extends Observable {
     public boolean tilt(Side side) {
         boolean changed;
         changed = false;
+        board.setViewingPerspective(side);
 
         // TODO: Modify this.board (and perhaps this.score) to account
+
+        //nextTile is below currentTile, merge up. when currentTile is not null
+        for (int col = 0; col < board.size(); col += 1) {
+            for (int row = board.size() - 1; row >= 0; row -= 1) {
+                Tile currentTile = board.tile(col, row);//
+                if (currentTile != null) {
+                    for (int row2 = row - 1; row2 >= 0; row2 -= 1) {
+                        Tile nextTile = board.tile(col, row2);
+                        if (nextTile != null) {
+                            if (currentTile.value() == nextTile.value()) {
+                                board.move(col, row, nextTile); //move nextTile up
+                                changed = true;
+                                score += 2 * currentTile.value();
+                                row = row2;
+                                break;
+                            } else {
+                                break; // if values are different, no need to move.
+                            }
+                        } else {
+                            continue; // if nextTile is null, then continue the loop.
+                        }
+                    }
+                }
+            }
+        }
+
+        //when currentTile is null
+        for (int col = 0; col < board.size(); col += 1) {
+            for (int row = board.size() - 1; row >= 0; row -= 1) {
+                Tile currentTile = board.tile(col, row);
+                if (currentTile == null) {
+                    for (int row2 = row - 1; row2 >= 0; row2 -= 1) {
+                        Tile nextTile = board.tile(col, row2);
+                        if (nextTile != null) {
+                            board.move(col, row, nextTile);
+                            changed = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
-
+        board.setViewingPerspective(Side.NORTH);
         checkGameOver();
         if (changed) {
             setChanged();
         }
         return changed;
     }
+
+
 
     /** Checks if the game is over and sets the gameOver variable
      *  appropriately.
