@@ -22,25 +22,26 @@ public class TimeAList {
     }
 
     public static void timeAListConstruction() {
-        // TODO: YOUR CODE HERE
-        AList<Integer> sizeOfData = new AList<>();
-        AList<Double> timeRequired = new AList<>();
-        AList<Integer> numberOfCall = new AList<>();
+        AList<Integer> N = new AList<>();
+        AList<Integer> Ns = new AList<>();
+        AList<Double> times = new AList<>();
+        AList<Integer> opCounts = new AList<>();
 
-        for(int i = 1000; i <= 128000; i = i*2){
-            Stopwatch sw = new Stopwatch();
-            AList<Integer> tempList = new AList<>();
-
-            for (int j = 0; j < i; j++){
-                tempList.addLast(j);
+        int tick = 0;
+        int nextTarget = 1000;  // 目标大小，初始值为1000
+        for (int i = 0; i < 1024000; i += 1) {
+            if (N.size() == nextTarget) {
+                Stopwatch sw = new Stopwatch();
+                Ns.addLast(N.size());
+                times.addLast(sw.elapsedTime());
+                opCounts.addLast(nextTarget);
+                nextTarget *= 2;
+                tick += 1;
             }
-
-            sizeOfData.addLast(i);
-            timeRequired.addLast(sw.elapsedTime());
-            numberOfCall.addLast(i);
+            N.addLast(i);
         }
 
-        printTimingTable(sizeOfData,timeRequired,numberOfCall);
+        printTimingTable(Ns, times, opCounts);
     }
 
 }
