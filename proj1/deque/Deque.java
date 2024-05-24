@@ -1,5 +1,6 @@
 package deque;
 
+//double ended queue or deque
 public interface Deque<T> {
     int size();
     void addFirst(T item);
