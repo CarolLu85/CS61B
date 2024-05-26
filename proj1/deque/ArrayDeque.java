@@ -9,7 +9,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private int head; //it's index of head,
     private int tail; //it's index of tail, so type is int
 
-    public ArrayDeque(int capacity){
+    public ArrayDeque(){
         items = (T[]) new Object[8];
         this.head = 0;
         this.tail = 0;
@@ -46,8 +46,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         if(size == items.length){
             resize(size * 2);
         }
-        tail = (tail + 1) % items.length;
         items[tail] = item;
+        tail = (tail + 1) % items.length;
         size += 1;
     }
 

@@ -70,9 +70,14 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             return null;
         }
         Node<T> first = sentinelHead.next;
-        sentinelHead.next = first.next;
-        first.next.prev = sentinelHead;
-        size -= 1;
+        Node<T> second = first.next;
+
+        sentinelHead.next = second;
+        if (second != null) {
+            second.prev = sentinelHead;
+        }
+
+        size--;
         return first.data;
     }
 
