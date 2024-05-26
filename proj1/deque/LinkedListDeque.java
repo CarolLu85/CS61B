@@ -138,7 +138,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public boolean equals(Object o) {
-        if (!(o instanceof Deque)) {
+        if (!(o instanceof Deque)) {//objects type check>
             return false;
         }
         Deque<T> newO = (Deque<T>) o;
