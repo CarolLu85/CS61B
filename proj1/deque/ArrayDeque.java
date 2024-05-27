@@ -6,10 +6,10 @@ import java.util.NoSuchElementException;
 public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] items;
     private int size;
-    private int head; //it's index of head,
-    private int tail; //it's index of tail, so type is int
+    private int head; // it's index of head
+    private int tail; // it's index of tail, so type is int
 
-    public ArrayDeque(){
+    public ArrayDeque() {
         items = (T[]) new Object[8];
         this.head = 0;
         this.tail = 0;
@@ -21,9 +21,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         return size;
     }
 
-    public void resize(int capacity){
+    public void resize(int capacity) {
         T[] newArray = (T[]) new Object[capacity];
-        for (int i = 0; i < size; i ++){
+        for (int i = 0; i < size; i++) {
             newArray[i] = items[(head + i) % items.length];
         }
         items = newArray;
@@ -33,7 +33,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public void addFirst(T item) {
-        if(size == items.length){
+        if (size == items.length) {
             resize(size * 2);
         }
         head = (head - 1 + items.length) % items.length;
@@ -43,7 +43,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public void addLast(T item) {
-        if(size == items.length){
+        if (size == items.length) {
             resize(size * 2);
         }
         items[tail] = item;
@@ -53,22 +53,21 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public void printDeque() {
-//        for(int i = 0; i < size; i ++){
-//            System.out.println(items[i]);
-//        }
-        for(T i: this){
+        for (T i : this) {
             System.out.println(i);
         }
     }
 
     @Override
     public T removeFirst() {
-        if (size == 0){return null;}
+        if (size == 0) {
+            return null;
+        }
         T firstItem = items[head];
         items[head] = null;
         head = (head + 1) % items.length;
         size -= 1;
-        if(size > 0 && size == items.length / 4){
+        if (size > 0 && size == items.length / 4) {
             resize(items.length / 2);
         }
         return firstItem;
@@ -76,12 +75,14 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public T removeLast() {
-        if (size == 0){return null;}
+        if (size == 0) {
+            return null;
+        }
         tail = (tail - 1 + items.length) % items.length;
         T lastItem = items[tail];
         items[tail] = null;
         size -= 1;
-        if(size > 0 && size == items.length / 4){
+        if (size > 0 && size == items.length / 4) {
             resize(items.length / 2);
         }
         return lastItem;
@@ -89,16 +90,26 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public T get(int index) {
-        if (index < 0 || index >= size) {return null;}
-        return items[((head + index) % items.length)];
+        if (index < 0 || index >= size) {
+            return null;
+        }
+        return items[(head + index) % items.length];
     }
 
-    public Iterator<T> iterator(){
+    public T peekFirst() {
+        if (size == 0) {
+            return null;
+        }
+        return items[head];
+    }
+
+    @Override
+    public Iterator<T> iterator() {
         return new ArrayDequeIterator();
     }
 
     private class ArrayDequeIterator implements Iterator<T> {
-        private int n; //starting from n
+        private int n; // starting from n
 
         private ArrayDequeIterator() {
             n = 0;
@@ -118,8 +129,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         }
     }
 
+    @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Deque)) {//objects type check>
+        if (!(o instanceof Deque)) { // objects type check
             return false;
         }
         Deque<T> newO = (Deque<T>) o;
