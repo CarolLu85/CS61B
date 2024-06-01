@@ -2,7 +2,6 @@ package capers;
 
 import java.io.File;
 import java.io.IOException;
-
 import static capers.Utils.*; //imports all static methods from the Utils class into the current class, allowing them to be used directly without class name qualification.
 
 /** A repository for Capers 
