@@ -35,8 +35,8 @@ class Utils {
         }
         try {
             return Files.readAllBytes(file.toPath());
-        } catch (IOException excp) {
-            throw new IllegalArgumentException(excp.getMessage());
+        } catch (IOException excep) {
+            throw new IllegalArgumentException(excep.getMessage());
         }
     }
 

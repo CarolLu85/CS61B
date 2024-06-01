@@ -10,7 +10,7 @@ import static capers.Utils.*;
 public class Dog { // TODO
 
     /** Folder that dogs live in. */
-    static final File DOG_FOLDER = null; // TODO (hint: look at the `join`
+    static final File DOG_FOLDER = join(CapersRepository.CAPERS_FOLDER, "dogs"); // TODO (hint: look at the `join`
                                          //      function in Utils)
 
     /** Age of dog. */
@@ -40,7 +40,8 @@ public class Dog { // TODO
      */
     public static Dog fromFile(String name) {
         // TODO (hint: look at the Utils file)
-        return null;
+        File foundFile = new File(DOG_FOLDER, name);
+        return readObject(foundFile, Dog.class);
     }
 
     /**
@@ -57,6 +58,14 @@ public class Dog { // TODO
      */
     public void saveDog() {
         // TODO (hint: don't forget dog names are unique)
+        File saveDog = join(DOG_FOLDER, this.name);
+        if (!saveDog.exists()){
+            try{
+                saveDog.createNewFile();
+            }catch (IllegalArgumentException exception){
+                throw new IllegalArgumentException(exception.getMessage());
+            }
+        }
     }
 
     @Override
