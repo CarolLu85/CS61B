@@ -343,6 +343,7 @@ def doTest(test):
                     if out:
                         print(re.sub(r'(?m)^', '- ', chop_nl(out)))
                 if msg == "OK":
+                    print("out:" + out)
                     if not correctProgramOutput(expected, out, last_groups,
                                                 is_regexp):
                         msg = "incorrect output"

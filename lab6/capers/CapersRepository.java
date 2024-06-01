@@ -55,7 +55,7 @@ public class CapersRepository {
 
         File storyFile = join(CAPERS_FOLDER, "story");
         String existedStories = readContentsAsString(storyFile);
-        String newStories = existedStories + text + "/n";
+        String newStories = existedStories + text + "\n";
         writeContents(storyFile,newStories);
         String fullStory = readContentsAsString(storyFile);
         System.out.println(fullStory);
