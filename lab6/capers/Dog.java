@@ -41,8 +41,10 @@ public class Dog implements Serializable { // TODO
      */
     public static Dog fromFile(String name) {
         // TODO (hint: look at the Utils file)
+        Dog targetDog;
         File foundFile = new File(DOG_FOLDER, name);
-        return readObject(foundFile, Dog.class);
+        targetDog = readObject(foundFile, Dog.class);
+        return targetDog;
     }
 
     /**
@@ -67,6 +69,7 @@ public class Dog implements Serializable { // TODO
                 throw new IllegalArgumentException(exception.getMessage());
             }
         }
+        writeObject(saveDog,this);
     }
 
     @Override

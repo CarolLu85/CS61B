@@ -18,7 +18,7 @@ public class Main {
      *                 current story.
      *
      * dog [name] [breed] [age] -- Persistently creates a dog with
-     *                             the specified parameters; should also print
+     *                               the specified parameters; should also print
      *                             the dog's toString(). Assume dog names are
      *                             unique.
      *

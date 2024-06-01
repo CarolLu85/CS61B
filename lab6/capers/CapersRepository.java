@@ -32,7 +32,7 @@ public class CapersRepository {
      *    - story -- file containing the current story
      */
     public static void setupPersistence() {
-        // TODO
+
         CAPERS_FOLDER.mkdir(); //create capers folder
         File dogFolder = new File(CAPERS_FOLDER,"dogs");
         dogFolder.mkdir();
@@ -52,12 +52,13 @@ public class CapersRepository {
      * @param text String of the text to be appended to the story
      */
     public static void writeStory(String text) {
-        // TODO
+
         File storyFile = join(CAPERS_FOLDER, "story");
         String existedStories = readContentsAsString(storyFile);
         String newStories = existedStories + text + "/n";
         writeContents(storyFile,newStories);
-        System.out.println(newStories);
+        String fullStory = readContentsAsString(storyFile);
+        System.out.println(fullStory);
     }
     /**
      * Creates and persistently saves a dog using the first
@@ -65,7 +66,7 @@ public class CapersRepository {
      * Also prints out the dog's information using toString().
      */
     public static void makeDog(String name, String breed, int age) {
-        // TODO
+
         Dog newDog = new Dog(name, breed, age);
         newDog.saveDog();
         System.out.println(newDog.toString());
@@ -78,8 +79,9 @@ public class CapersRepository {
      * @param name String name of the Dog whose birthday we're celebrating.
      */
     public static void celebrateBirthday(String name) {
-        // TODO
+
         Dog birthDayDog = Dog.fromFile(name);
         birthDayDog.haveBirthday();
+        birthDayDog.saveDog();
     }
 }
