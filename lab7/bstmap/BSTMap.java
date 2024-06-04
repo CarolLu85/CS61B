@@ -1,5 +1,6 @@
 package bstmap;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -73,8 +74,18 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     @Override
     public Set<K> keySet() {
+        HashSet<K> set = new HashSet<>();
+        addKeys(root, set);
+        return set;
+    }
 
-        return null;
+    private void addKeys(Node node, Set<K> set) {
+        if (node == null) {
+            return;
+        }
+        set.add(node.key);
+        addKeys(node.left, set);
+        addKeys(node.right, set);
     }
 
     @Override
@@ -130,12 +141,16 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         return null;
     }
 
-    public void printInOrder(){
+    public void printInOrder(Node node){
+        if (node == null) {return;}
+        printInOrder(node.left);
+        System.out.println(node.key.toString() + " -> " + node.value.toString());
+        printInOrder(node.right);
 
     }
 
     @Override
     public Iterator iterator() {
-        return null;
+        return keySet().iterator();
     }
 }
